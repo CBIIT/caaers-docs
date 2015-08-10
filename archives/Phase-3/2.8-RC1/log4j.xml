@@ -22,50 +22,59 @@
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
 
     <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
-        <param name="threshold" value="ERROR"/>
+        <param name="threshold" value="FATAL"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%-5p - %-30c{1} - %m%n"/>
         </layout>
     </appender>
 
-    <appender name="FILE" class="org.apache.log4j.FileAppender">
-        <param name="threshold" value="ERROR"/>
-        <param name="File" value="data/log/servicemix.log"/>
+    <!-- for testing, purge the log on each run -->
+    <appender name="FILE" class="org.apache.log4j.RollingFileAppender">
+        <param name="maxBackupIndex" value="40"/>
+        <param name="file" value="data/log/servicemix.log"/>
+        <param name="threshold" value="DEBUG"/>
+        <param name="append" value="true"/>
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{ABSOLUTE} | %-5p | %t | %c | %m%n"/>
+            <param name="conversionPattern" value="caAERS-SM| %d [%15t] %-5p %c: %m%n"/>
         </layout>
     </appender>
-
+	
     <logger name="org.apache">
-        <level value="WARN"/>
+        <level value="ERROR"/>
+    </logger>
+    <logger name="org.apache.camel">
+        <level value="ERROR"/>
     </logger>
     <logger name="org.apache.cxf">
         <level value="ERROR"/>
     </logger>
     <logger name="org.springframework">
-        <level value="WARN"/>
+        <level value="ERROR"/>
     </logger>
     <logger name="org.jencks">
-        <level value="WARN"/>
+        <level value="ERROR"/>
     </logger>
     <logger name="org.apache.activemq">
-        <level value="WARN"/>
+        <level value="ERROR"/>
     </logger>
     <logger name="org.apache.activemq.transport.discovery">
         <level value="ERROR"/>
     </logger>
     <logger name="org.apache.servicemix">
         <!-- To enable debug logging, replace the INFO by DEBUG -->
-        <level value="WARN"/>
+        <level value="ERROR"/>
     </logger>
     <logger name="org.apache.servicemix.jbi.config">
-        <level value="WARN"/>
+        <level value="ERROR"/>
     </logger>
     <logger name="org.apache.servicemix.jbi.deployment">
         <level value="WARN"/>
     </logger>
-    <logger name="gov.nih.nci.cabig">
-        <level value="DEBUG"/>
+	<logger name="org.eclipse.jetty">
+        <level value="WARN"/>
+    </logger>
+	<logger name="gov.nih.nci.cabig.caaers2adeers.track">
+        <level value="INFO"/>
     </logger>
     <root>
         <level value="ERROR"/>
